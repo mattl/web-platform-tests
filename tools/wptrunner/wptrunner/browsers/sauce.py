@@ -137,17 +137,16 @@ class SauceConnect():
 
     def __enter__(self, options):
         if not self.sauce_connect_binary:
-            self.temp_dir = tempfile.mkdtemp()
-            get_tar("https://saucelabs.com/downloads/sc-4.4.9-linux.tar.gz", self.temp_dir)
-            self.sauce_connect_binary = glob.glob(os.path.join(self.temp_dir, "sc-*-linux/bin/sc"))[0]
-
+            
+            self.sauce_connect_binary = "/usr/local/bin/sc"
+            
         self.upload_prerun_exec('edge-prerun.bat')
         self.upload_prerun_exec('safari-prerun.sh')
-
+        
+        self.sauce_connect_binary = "/usr/local/bin/sc"
+        
         self.sc_process = subprocess.Popen([
             self.sauce_connect_binary,
-            "--user=%s" % self.sauce_user,
-            "--api-key=%s" % self.sauce_key,
             "--no-remove-colliding-tunnels",
             "--tunnel-identifier=%s" % self.sauce_tunnel_id,
             "--metrics-address=0.0.0.0:9876",
