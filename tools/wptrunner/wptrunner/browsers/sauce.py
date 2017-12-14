@@ -147,6 +147,8 @@ class SauceConnect():
         
         self.sc_process = subprocess.Popen([
             self.sauce_connect_binary,
+            "--user=%s" % self.sauce_user,
+            "--api-key=%s" % self.sauce_key,
             "--no-remove-colliding-tunnels",
             "--tunnel-identifier=%s" % self.sauce_tunnel_id,
             "--metrics-address=0.0.0.0:9876",
